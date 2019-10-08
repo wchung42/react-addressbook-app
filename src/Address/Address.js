@@ -6,12 +6,13 @@ const address = (props) => {
     let addresses = [...props.addresses];
     let listAddresses = addresses.map((address) =>
         <ListGroup.Item key = {address.key}>
-            <Card className = "bg-light border rounded">
-                <Card.Body className = "text-left">
-                <p>First Name: {address.firstName}</p>
-                <p>Last Name: {address.lastName}</p>
-                <p>Birthday: {address.birthday}</p>
-                <p>Telephone: {address.telephone}</p>
+            <Card border = 'primary' style = {{ width: '20rem'}} >
+                <span className = 'text-right' key = {address.key} onClick = {props.deleted.bind(null, address.key)}>{'\uD83D\uDDD1'}</span>
+                <Card.Body className = 'text-left'>
+                <p><b>First Name:</b> {address.firstName}</p>
+                <p><b>Last Name:</b> {address.lastName}</p>
+                <p><b>Birthday:</b> {address.birthday}</p>
+                <p><b>Telephone:</b> {address.telephone}</p>
                 </Card.Body>
             </Card>
         </ListGroup.Item>

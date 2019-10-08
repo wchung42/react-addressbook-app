@@ -38,6 +38,14 @@ class App extends Component {
     this.setState({formBirthday: ''});
     this.setState({formTelephone: ''});
   }
+
+  deleteAddressHandler = (key) => {
+    const addresses = [...this.state.addresses];
+    const indexToDelete = addresses.findIndex((address) => address.key === key);
+    addresses.splice(indexToDelete, 1);
+    this.setState({addresses: addresses});
+
+  }
   
   render = () => {
 
@@ -48,7 +56,10 @@ class App extends Component {
             <h1>React Address Book </h1>
           </header>
           {/* rendering the default addresses */}
-          <Address addresses = {this.state.addresses}></Address>
+          <Address 
+            addresses = {this.state.addresses}
+            deleted = {this.deleteAddressHandler}>
+          </Address>
           {/* adding the form */}
           <h2 className = 'text-left'>Add an address</h2>
           <Form className = 'text-left' onSubmit = { this.addAddressHandler }>
