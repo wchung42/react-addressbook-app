@@ -1,14 +1,23 @@
 import React from 'react';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Card from 'react-bootstrap/Card';
 
 const address = (props) => {
-    return (
-        <div className = "Address">
-            <p>First Name: {props.firstName}</p>
-            <p>Last Name: {props.lastName}</p>
-            <p>Birthday: {props.birthday}</p>
-            <p>Telephone: {props.telephone}</p>
-        </div>
+    let addresses = [...props.addresses];
+    let listAddresses = addresses.map((address) =>
+        <ListGroup.Item key = {address.key}>
+            <Card className = "bg-light border rounded">
+                <Card.Body className = "text-left">
+                <p>First Name: {address.firstName}</p>
+                <p>Last Name: {address.lastName}</p>
+                <p>Birthday: {address.birthday}</p>
+                <p>Telephone: {address.telephone}</p>
+                </Card.Body>
+            </Card>
+        </ListGroup.Item>
     )
+    
+    return listAddresses;
 }
 
 export default address;
