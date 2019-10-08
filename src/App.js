@@ -40,11 +40,12 @@ class App extends Component {
   }
 
   deleteAddressHandler = (key) => {
-    const addresses = [...this.state.addresses];
-    const indexToDelete = addresses.findIndex((address) => address.key === key);
-    addresses.splice(indexToDelete, 1);
-    this.setState({addresses: addresses});
-
+    if (window.confirm('Are you sure you want to delete this address?')) {
+      const addresses = [...this.state.addresses];
+      const indexToDelete = addresses.findIndex((address) => address.key === key);
+      addresses.splice(indexToDelete, 1);
+      this.setState({addresses: addresses});
+    }
   }
   
   render = () => {
@@ -58,7 +59,7 @@ class App extends Component {
           {/* rendering the default addresses */}
           <Address 
             addresses = {this.state.addresses}
-            deleted = {this.deleteAddressHandler}>
+            delete = {this.deleteAddressHandler}>
           </Address>
           {/* adding the form */}
           <h2 className = 'text-left'>Add an address</h2>
