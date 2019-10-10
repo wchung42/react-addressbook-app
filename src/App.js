@@ -40,10 +40,10 @@ class App extends Component {
     this.setState({formTelephone: ''});
   }
 
-  deleteAddressHandler = (key) => {
+  deleteAddressHandler = (indexToDelete) => {
     if (window.confirm('Are you sure you want to delete this address?')) {
       const addresses = [...this.state.addresses];
-      const indexToDelete = addresses.findIndex((address) => address.key === key);
+      //const indexToDelete = addresses.findIndex((address) => address.key === key);
       addresses.splice(indexToDelete, 1);
       this.setState({addresses: addresses});
     }
@@ -68,13 +68,14 @@ class App extends Component {
           </header>
           <input type = "text" placeholder = "Enter a name" onChange = {this.updateSearch.bind(this)}></input>
           
-          {filteredAddresses.map((address) => {
+          {filteredAddresses.map((address, index) => {
             return <Address 
+              key = {address.key}
               firstName = {address.firstName} 
               lastName = {address.lastName}
               birthday = {address.birthday}
               telephone = {address.telephone}
-              delete = {this.deleteAddressHandler} />
+              delete = {() => this.deleteAddressHandler(index)} />
           })}
 
           {/* adding the form */}

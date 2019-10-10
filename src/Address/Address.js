@@ -5,7 +5,7 @@ const address = (props) => {
     return (
         <Card border = 'primary' style = {{ width: '18rem'}} >
             <span className = 'text-right' key = {props.key}
-                onClick = {props.delete.bind(null, props.key)}>{'\uD83D\uDDD1'}
+                onClick = {props.delete}>{'\uD83D\uDDD1'}
             </span>
             <Card.Body className = 'text-left'>
             <p><b>First Name:</b> {props.firstName}</p>
