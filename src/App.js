@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Col } from 'react-bootstrap';
 import Address from './Address/Address';
 import { generate } from 'randomstring';
 import Form from 'react-bootstrap/Form';
@@ -20,7 +20,8 @@ class App extends Component {
     formFirstName: '',
     formLastName: '',
     formBirthday: '',
-    formTelephone: ''
+    formTelephone: '',
+    search: '',
   }
 
   addAddressHandler = (event) => {
@@ -48,7 +49,16 @@ class App extends Component {
     }
   }
   
+  updateSearch = (event) => {
+    this.setState({search: event.target.value});
+  }
+  
   render = () => {
+    let filteredAddresses = this.state.addresses.filter(
+      (address) => {
+        return address.firstName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+      }
+    );
 
     return (
       <div className="App">
@@ -56,13 +66,19 @@ class App extends Component {
           <header className="App-header text-left">
             <h1>React Address Book </h1>
           </header>
-          {/* rendering the default addresses */}
-          <Address 
-            addresses = {this.state.addresses}
-            delete = {this.deleteAddressHandler}>
-          </Address>
+          <input type = "text" placeholder = "Enter a name" onChange = {this.updateSearch.bind(this)}></input>
+          
+          {filteredAddresses.map((address) => {
+            return <Address 
+              firstName = {address.firstName} 
+              lastName = {address.lastName}
+              birthday = {address.birthday}
+              telephone = {address.telephone}
+              delete = {this.deleteAddressHandler} />
+          })}
+
           {/* adding the form */}
-          <h2 className = 'text-left'>Add an address</h2>
+          <h2 className = 'text-left'>Add a new contact</h2>
           <Form className = 'text-left' onSubmit = { this.addAddressHandler }>
             <Form.Group controlId = "formAddress">
               <Form.Row>
@@ -89,7 +105,7 @@ class App extends Component {
                 value = {this.state.formTelephone} 
                 onChange = {(e) => this.setState({formTelephone: e.target.value})}/>
             </Form.Group>
-            <Button variant = "primary" type = "submit">Add Address</Button>
+            <Button variant = "primary" type = "submit">Add Contact</Button>
           </Form>
           
         </Container>
